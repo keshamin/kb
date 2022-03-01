@@ -1,0 +1,269 @@
+<!doctype html><html lang=en-us dir=ltr>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Data Stage #  Types of Datasets #  Small Data vs. Big Data: generally, the threshold is &ldquo;can a small team examine every single example in a reasonable time?&rdquo;.
+Small Data
+ Every record can be manually examined Humans can label data Clean (true and consistent) labels are critical If the labels are inconsistent, it may be more worthy to fix that instead of collecting new data and overcomplicate a model   Big Data">
+<meta name=theme-color content="#FFFFFF">
+<meta name=color-scheme content="light dark"><meta property="og:title" content="Data Stage">
+<meta property="og:description" content="Data Stage #  Types of Datasets #  Small Data vs. Big Data: generally, the threshold is &ldquo;can a small team examine every single example in a reasonable time?&rdquo;.
+Small Data
+ Every record can be manually examined Humans can label data Clean (true and consistent) labels are critical If the labels are inconsistent, it may be more worthy to fix that instead of collecting new data and overcomplicate a model   Big Data">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/articles/mle/lifecycle/data/"><meta property="article:section" content="articles">
+<meta property="article:published_time" content="2022-02-25T11:50:54+03:00">
+<meta property="article:modified_time" content="2022-02-25T11:50:54+03:00">
+<title>Data Stage | MinII KB</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
+<script defer src=/flexsearch.min.js></script>
+<script defer src=/en.search.min.1aa45dc990d87412f2e943b0cd2015ee8d250485fc72e63d7faa276dea820403.js></script>
+</head>
+<body dir=ltr>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<div class=book-menu-content>
+<nav>
+<h2 class=book-brand>
+<a class="flex align-center" href=/><span>MinII KB</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li>
+<a href=/articles/mle/>Machine Learning Engineering</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/>ML Project Lifecycle</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/scoping/>Scoping Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/data/ class=active>Data Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/modeling/>Modeling Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/deployment/>Deployment Stage</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</div>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>Data Stage</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#types-of-datasets>Types of Datasets</a>
+<ul>
+<li><a href=#examples>Examples</a></li>
+</ul>
+</li>
+<li><a href=#label-consistency>Label Consistency</a></li>
+<li><a href=#ground-truth-definition>Ground Truth Definition</a></li>
+<li><a href=#obtain-new-data>Obtain New Data</a></li>
+<li><a href=#data-provenance-and-data-linage>Data Provenance and Data Linage</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown><h1 id=data-stage>
+Data Stage
+<a class=anchor href=#data-stage>#</a>
+</h1>
+<h2 id=types-of-datasets>
+Types of Datasets
+<a class=anchor href=#types-of-datasets>#</a>
+</h2>
+<p><strong>Small Data</strong> vs. <strong>Big Data</strong>: generally, the threshold is &ldquo;can a small team examine every single example
+in a reasonable time?&rdquo;.</p>
+<div class="book-columns flex flex-wrap">
+<div class="flex-even markdown-inner">
+<p><strong>Small Data</strong></p>
+<ul>
+<li>Every record can be manually examined</li>
+<li>Humans can label data</li>
+<li>Clean (true and consistent) labels are critical</li>
+<li>If the labels are inconsistent, it may be more worthy to fix that instead of collecting new data
+and overcomplicate a model</li>
+</ul>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>Big Data</strong></p>
+<ul>
+<li>Manual labeling is nearly impossible</li>
+<li>Focus of data processes</li>
+<li><strong>but</strong> problems of rear events in Big Data are pretty similar to the problems of Small Data, where accurate
+labeling is critical</li>
+</ul>
+</div>
+</div>
+<div class="book-columns flex flex-wrap">
+<div class="flex-even markdown-inner">
+<p><strong>Unstructured Data</strong></p>
+<ul>
+<li>Humans can label more data</li>
+<li>Data Augmentation more likely to be helpful</li>
+</ul>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>Structured Data</strong></p>
+<ul>
+<li>May be more difficult to obtain more data</li>
+<li>Human labeling may not be possible</li>
+</ul>
+</div>
+</div>
+<h3 id=examples>
+Examples
+<a class=anchor href=#examples>#</a>
+</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Unstructured</th>
+<th>Structured</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Small Data</td>
+<td>Manufacturing visual inspection from 100 training examples</td>
+<td>Housing price prediction based on square footage, etc. from 50 examples</td>
+</tr>
+<tr>
+<td>Big Data</td>
+<td>Speech recognition from 50 million examples</td>
+<td>Online shopping recommendations for 1 million users</td>
+</tr>
+</tbody>
+</table>
+<h2 id=label-consistency>
+Label Consistency
+<a class=anchor href=#label-consistency>#</a>
+</h2>
+<p>Techniques:</p>
+<ul>
+<li><strong>Standardizing</strong>: make an agreement between MLE, Subject Matter Experts and labelers. As well-defined as posible.</li>
+<li><strong>Merging Classes</strong>: sometimes it&rsquo;s more productive to treat some classes as one
+(e.g. &ldquo;small scratch&rdquo; and &ldquo;deep scratch&rdquo; -> &ldquo;scratch&rdquo;)</li>
+<li><strong>Unknown/Borderline Class</strong>: introduce a separate class for ambiguous examples</li>
+</ul>
+<p>To verify label consistency, the same data can be re-labeled by a few labelers or even by the same labeler
+after some time.</p>
+<h2 id=ground-truth-definition>
+Ground Truth Definition
+<a class=anchor href=#ground-truth-definition>#</a>
+</h2>
+<p>It is critical to understand how is the Ground Truth defined. How objective it is?</p>
+<p>When the GT is externally defined, HLP (Human Level Performance) gives an estimate of irreducable error.
+But if the GT is defined by a human&rsquo;s decision, it is the algorithm accuracy is generally &ldquo;how close it is
+to the human&rsquo;s opinion&rdquo;.</p>
+<h2 id=obtain-new-data>
+Obtain New Data
+<a class=anchor href=#obtain-new-data>#</a>
+</h2>
+<p>The earlier you start to iterate through <a href=/articles/mle/lifecycle/modeling/#training-cycle>model training cycle</a> - the better.</p>
+<p>Brainstorm list of data sources:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Amount</th>
+<th>Cost</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Owned</td>
+<td>100 units</td>
+<td>$0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Crownsourced</td>
+<td>1000 units</td>
+<td>$10000</td>
+<td>14d</td>
+</tr>
+<tr>
+<td>Pay for labels</td>
+<td>100 units</td>
+<td>$6000</td>
+<td>7d</td>
+</tr>
+<tr>
+<td>Purchase data</td>
+<td>1000 units</td>
+<td>$10000</td>
+<td>1d</td>
+</tr>
+</tbody>
+</table>
+<blockquote class="book-hint warning">
+Don&rsquo;t increase the dataset size more than 10x at a time.
+Otherwise, it can be really hard to predict how it will affect the model
+</blockquote>
+<h2 id=data-provenance-and-data-linage>
+Data Provenance and Data Linage
+<a class=anchor href=#data-provenance-and-data-linage>#</a>
+</h2>
+<p><strong>Data Provenance</strong>: where the data comes from.<br>
+<strong>Data Linage</strong>: how to reproduce the same data through sequence of steps.</p>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<div class=book-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#types-of-datasets>Types of Datasets</a>
+<ul>
+<li><a href=#examples>Examples</a></li>
+</ul>
+</li>
+<li><a href=#label-consistency>Label Consistency</a></li>
+<li><a href=#ground-truth-definition>Ground Truth Definition</a></li>
+<li><a href=#obtain-new-data>Obtain New Data</a></li>
+<li><a href=#data-provenance-and-data-linage>Data Provenance and Data Linage</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+</main>
+</body>
+</html>

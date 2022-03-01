@@ -1,0 +1,294 @@
+<!doctype html><html lang=en-us dir=ltr>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Modeling #  AI system = Code + Data  Approaches to modeling
+ Model-centric: improve the algorithm Data-centric: improve the data quality  Training Cycle #   mermaid.initialize({ &#34;flowchart&#34;: { &#34;useMaxWidth&#34;:true }, &#34;theme&#34;: &#34;default&#34; } ) flowchart LR MHD(Model \n + Hyperparameters \n + Data) TR(Training) EA(Error Analysis) MHD -- TR TR -- EA EA -- MHD Why Low Average Error isn&rsquo;t Good Enough #  Typical ML model challenges:">
+<meta name=theme-color content="#FFFFFF">
+<meta name=color-scheme content="light dark"><meta property="og:title" content="Modeling Stage">
+<meta property="og:description" content="Modeling #  AI system = Code + Data  Approaches to modeling
+ Model-centric: improve the algorithm Data-centric: improve the data quality  Training Cycle #   mermaid.initialize({ &#34;flowchart&#34;: { &#34;useMaxWidth&#34;:true }, &#34;theme&#34;: &#34;default&#34; } ) flowchart LR MHD(Model \n + Hyperparameters \n + Data) TR(Training) EA(Error Analysis) MHD -- TR TR -- EA EA -- MHD Why Low Average Error isn&rsquo;t Good Enough #  Typical ML model challenges:">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/articles/mle/lifecycle/modeling/"><meta property="article:section" content="articles">
+<meta property="article:published_time" content="2022-02-24T13:29:29+03:00">
+<meta property="article:modified_time" content="2022-02-24T13:29:29+03:00">
+<title>Modeling Stage | MinII KB</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
+<script defer src=/flexsearch.min.js></script>
+<script defer src=/en.search.min.1aa45dc990d87412f2e943b0cd2015ee8d250485fc72e63d7faa276dea820403.js></script>
+</head>
+<body dir=ltr>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<div class=book-menu-content>
+<nav>
+<h2 class=book-brand>
+<a class="flex align-center" href=/><span>MinII KB</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li>
+<a href=/articles/mle/>Machine Learning Engineering</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/>ML Project Lifecycle</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/scoping/>Scoping Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/data/>Data Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/modeling/ class=active>Modeling Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/deployment/>Deployment Stage</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</div>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>Modeling Stage</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#training-cycle>Training Cycle</a></li>
+<li><a href=#why-low-average-error-isnt-good-enough>Why Low Average Error isn&rsquo;t Good Enough</a>
+<ul>
+<li><a href=#priorities>Priorities</a></li>
+<li><a href=#performance-on-key-slices>Performance on Key Slices</a></li>
+<li><a href=#rare-classes>Rare Classes</a></li>
+</ul>
+</li>
+<li><a href=#establishing-a-baseline-level-of-performance>Establishing a Baseline Level of Performance</a></li>
+<li><a href=#error-analysis>Error Analysis</a></li>
+<li><a href=#data-manipulations-for-improving-performance>Data Manipulations for Improving Performance</a>
+<ul>
+<li><a href=#data-augmentation>Data Augmentation</a></li>
+<li><a href=#adding-features>Adding features</a></li>
+</ul>
+</li>
+<li><a href=#experiment-tracking>Experiment Tracking</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown><h1 id=modeling>
+Modeling
+<a class=anchor href=#modeling>#</a>
+</h1>
+<span style=font-famili:Calibri;font-size:2em>
+AI system = Code + Data
+</span>
+<p>Approaches to modeling</p>
+<ul>
+<li>Model-centric: improve the algorithm</li>
+<li>Data-centric: improve the data quality</li>
+</ul>
+<h2 id=training-cycle>
+Training Cycle
+<a class=anchor href=#training-cycle>#</a>
+</h2>
+<script src=/mermaid.min.js></script>
+<script>mermaid.initialize({flowchart:{useMaxWidth:!0},theme:"default"})</script>
+<p class=mermaid>
+flowchart LR
+MHD(Model \n + Hyperparameters \n + Data)
+TR(Training)
+EA(Error Analysis)
+MHD --> TR
+TR --> EA
+EA --> MHD
+</p>
+<h2 id=why-low-average-error-isnt-good-enough>
+Why Low Average Error isn&rsquo;t Good Enough
+<a class=anchor href=#why-low-average-error-isnt-good-enough>#</a>
+</h2>
+<p>Typical ML model challenges:</p>
+<ol>
+<li>Perform well on training dataset (avg training error)</li>
+<li>Perform well on dev/test sets</li>
+<li>Perform well on <strong>business metrics/project goals</strong>.<br>
+In most cases, this is not the same as item #2.</li>
+</ol>
+<h3 id=priorities>
+Priorities
+<a class=anchor href=#priorities>#</a>
+</h3>
+<p>The model performance is measured by average error metrics over all possible requests.
+But in real world requests have priorities. So-called &ldquo;disproportionally important&rdquo; requests.
+From business perspective, the model performance requirements on such requests are higher.</p>
+<blockquote>
+<p>Example:</p>
+<p>In web search engine there are requests like: &ldquo;Apple pie recipe&rdquo; or &ldquo;Latest movies&rdquo;.
+They are Informational and Transactional queries. Most likely, there&rsquo;s no &ldquo;best apple pie recipe&rdquo;, so
+errors in ranking are forgivable.</p>
+<p>In contrast, if user queries &ldquo;YouTube&rdquo; or &ldquo;Reddit&rdquo; they expect the correct result to be Top-1.
+Such queries are Navigational and have higher error cost.</p>
+</blockquote>
+<h3 id=performance-on-key-slices>
+Performance on Key Slices
+<a class=anchor href=#performance-on-key-slices>#</a>
+</h3>
+<p>Make sure to treat all slices of the dataset fairly.
+The model <strong>must not discriminate</strong> by gender, location, ethnicity or other protected attributes.</p>
+<h3 id=rare-classes>
+Rare Classes
+<a class=anchor href=#rare-classes>#</a>
+</h3>
+<p>Skewed data distribution:</p>
+<ul>
+<li>99% negative</li>
+<li>1% positive</li>
+</ul>
+<p>If some class is rare the model can just ignore it without a major effect on average accuracy.</p>
+<p>To detect such a skew dataset the <strong>Confusion Matrix</strong> should be used instead of Accuracy.</p>
+<link rel=stylesheet href=/katex/katex.min.css>
+<script defer src=/katex/katex.min.js></script>
+<script defer src=/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
+\(Precision = \cfrac{TP}{TP + FP} \qquad Recall = \cfrac{TP}{TP + FN}\)
+</span>
+<p>Combining Precision and Recall - F1 score</p>
+<span>
+\(F_1 = \cfrac{2}{\cfrac{1}{Precision} + \cfrac{1}{Recall}}\)
+</span>
+<h2 id=establishing-a-baseline-level-of-performance>
+Establishing a Baseline Level of Performance
+<a class=anchor href=#establishing-a-baseline-level-of-performance>#</a>
+</h2>
+<p>Baseline helps indicate what might be possible. In some cases it also gives a sense of what
+is irreducable error (Bayes error). A baseline can be established per category.</p>
+<p>Ways to establish a baseline:</p>
+<ul>
+<li>Human Level Performance (HLP)</li>
+<li>Search for results of similar projects</li>
+<li>Quick-and-dirty implementation</li>
+<li>Performance of older system</li>
+</ul>
+<h2 id=error-analysis>
+Error Analysis
+<a class=anchor href=#error-analysis>#</a>
+</h2>
+<p>By manually expecting misclassified examples you may come up with additional attributes/tags that should be assigned
+to records in a dataset.
+For example, you found out that some audio clips have car noises in the background. Maybe it&rsquo;s worth to add this column
+to the dataset and check:</p>
+<ul>
+<li>what fraction of errors has that tag?</li>
+<li>Of all data with that tag what fraction is misclassified?</li>
+<li>What fraction of all the data has that tag?</li>
+<li>How much room for improvement is there on data with that tag?</li>
+</ul>
+<p>Baseline helps indicate how much room for improvement is there for certain category:<br>
+(Baseline accuracy - Current accuracy) * Category frequency.</p>
+<p>For categories you want to prioritize:</p>
+<ul>
+<li>Collect more data</li>
+<li>Use augmentation to get more data</li>
+<li>Improve data quality</li>
+</ul>
+<h2 id=data-manipulations-for-improving-performance>
+Data Manipulations for Improving Performance
+<a class=anchor href=#data-manipulations-for-improving-performance>#</a>
+</h2>
+<h3 id=data-augmentation>
+Data Augmentation
+<a class=anchor href=#data-augmentation>#</a>
+</h3>
+<p>The goal is to create <strong>realistic</strong> examples that:</p>
+<ol>
+<li>the algorithm does poorly on</li>
+<li>humans (or other baseline) do well on</li>
+</ol>
+<p>As a rule, Data Augmentation does not hurt the performance if:</p>
+<ul>
+<li>the model is large (low bias)</li>
+<li>The mapping x -> y is clear (1 vs I)</li>
+</ul>
+<p>Data Augmentation is a good fit <strong>for unstructured data</strong>.</p>
+<h3 id=adding-features>
+Adding features
+<a class=anchor href=#adding-features>#</a>
+</h3>
+<p>For <strong>structured data</strong> it&rsquo;s often more efficient to add new features to existent data instead of
+creating completely new data records.</p>
+<h2 id=experiment-tracking>
+Experiment Tracking
+<a class=anchor href=#experiment-tracking>#</a>
+</h2>
+<p>Things to track:</p>
+<ul>
+<li>Algorithm version</li>
+<li>Dataset used</li>
+<li>Hyperparameters</li>
+<li>Results</li>
+</ul>
+<p>Desirable Features:</p>
+<ul>
+<li>Experiment reproducability</li>
+<li>Experiment results with metrics analysis</li>
+<li>Perhaps: resource consumption, visualization, etc&mldr;</li>
+</ul>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<div class=book-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#training-cycle>Training Cycle</a></li>
+<li><a href=#why-low-average-error-isnt-good-enough>Why Low Average Error isn&rsquo;t Good Enough</a>
+<ul>
+<li><a href=#priorities>Priorities</a></li>
+<li><a href=#performance-on-key-slices>Performance on Key Slices</a></li>
+<li><a href=#rare-classes>Rare Classes</a></li>
+</ul>
+</li>
+<li><a href=#establishing-a-baseline-level-of-performance>Establishing a Baseline Level of Performance</a></li>
+<li><a href=#error-analysis>Error Analysis</a></li>
+<li><a href=#data-manipulations-for-improving-performance>Data Manipulations for Improving Performance</a>
+<ul>
+<li><a href=#data-augmentation>Data Augmentation</a></li>
+<li><a href=#adding-features>Adding features</a></li>
+</ul>
+</li>
+<li><a href=#experiment-tracking>Experiment Tracking</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+</main>
+</body>
+</html>
