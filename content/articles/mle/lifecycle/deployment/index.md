@@ -1,7 +1,7 @@
 ---
-title: "Model Deployment"
+title: "Deployment Stage"
 date: 2022-02-22T15:55:39+03:00
-weight: 2
+weight: 20
 description: Introduction to Model Deployment issue.
 ---
 

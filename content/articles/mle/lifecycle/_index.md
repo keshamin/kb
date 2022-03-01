@@ -8,6 +8,13 @@ weight: 1
 
 # ML Project Lifecycle
 
+{{< hint info >}}
+The slides on this page are copied from
+["Introduction to Machine Learning in Production"](https://www.coursera.org/learn/introduction-to-machine-learning-in-production)
+course by [DeepLearning.ai](https://deeplearning.ai/) for educational purposes.
+{{< /hint >}}
+
+
 ## Scoping Stage
 {{< figure src="./images/1-scoping.png" >}}
 
@@ -19,9 +26,3 @@ weight: 1
 
 ## Deployment Stage
 {{< figure src="./images/4-deployment.png" >}}
-
-{{< hint info >}}
-The slides on this page are copied from 
-["Introduction to Machine Learning in Production"](https://www.coursera.org/learn/introduction-to-machine-learning-in-production)
-course by [DeepLearning.ai](https://deeplearning.ai/) for educational purposes.
-{{< /hint >}}
