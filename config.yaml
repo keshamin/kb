@@ -8,3 +8,8 @@ params:
   # Page is resoled by .GetPage function: https://gohugo.io/functions/getpage/
   # For backward compatibility you can set '*' to render all sections to menu. Acts same as '/'
   BookSection: articles
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
