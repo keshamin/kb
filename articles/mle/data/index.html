@@ -1,0 +1,561 @@
+<!doctype html><html lang=en-us dir=ltr>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Data #  Data Inspection #   Identiry data sources Check how they are refreshed Consistency (formatting, data types) Outliers and errors  Responsilbe Data #   Bias in data User privacy:  Aggregation: replace unique values with summary Redaction: remove some data to create less complete picture   Compilance with GDPR and other regulations  Data Problems #  Data/Concept Drift #  Data changes:
+ Trend and seasonality Distributiob of features changes Relative importance of features changes   World changes:">
+<meta name=theme-color content="#FFFFFF">
+<meta name=color-scheme content="light dark"><meta property="og:title" content="Data">
+<meta property="og:description" content="Data #  Data Inspection #   Identiry data sources Check how they are refreshed Consistency (formatting, data types) Outliers and errors  Responsilbe Data #   Bias in data User privacy:  Aggregation: replace unique values with summary Redaction: remove some data to create less complete picture   Compilance with GDPR and other regulations  Data Problems #  Data/Concept Drift #  Data changes:
+ Trend and seasonality Distributiob of features changes Relative importance of features changes   World changes:">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/articles/mle/data/"><meta property="article:section" content="articles">
+<meta property="article:published_time" content="2022-03-01T15:40:36+03:00">
+<meta property="article:modified_time" content="2022-03-01T15:40:36+03:00">
+<title>Data | MinII KB</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
+<script defer src=/flexsearch.min.js></script>
+<script defer src=/en.search.min.f2e5928ea44859409d82544f2add8831960a87a07f5c649628dea2889278ad1b.js></script>
+</head>
+<body dir=ltr>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<div class=book-menu-content>
+<nav>
+<h2 class=book-brand>
+<a class="flex align-center" href=/><span>MinII KB</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li>
+<a href=/articles/mle/>Machine Learning Engineering</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/>ML Project Lifecycle</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/scoping/>Scoping Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/data/>Data Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/modeling/>Modeling Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/deployment/>Deployment Stage</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/articles/mle/ml_pipelines/>ML Pipelines</a>
+</li>
+<li>
+<a href=/articles/mle/data/ class=active>Data</a>
+</li>
+<li>
+<span>TensorFlow</span>
+<ul>
+<li>
+<a href=/articles/mle/tensorflow/transform/>TensorFlow Transform</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</div>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>Data</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#data-inspection>Data Inspection</a></li>
+<li><a href=#responsilbe-data>Responsilbe Data</a></li>
+<li><a href=#data-problems>Data Problems</a>
+<ul>
+<li><a href=#dataconcept-drift>Data/Concept Drift</a></li>
+<li><a href=#sudden-problems>Sudden Problems</a></li>
+<li><a href=#detecting-problems>Detecting Problems</a></li>
+</ul>
+</li>
+<li><a href=#data-labeling>Data Labeling</a></li>
+<li><a href=#data-validation>Data Validation</a></li>
+<li><a href=#data-preprocessing>Data Preprocessing</a>
+<ul>
+<li><a href=#scaling>Scaling</a></li>
+<li><a href=#normalization>Normalization</a></li>
+<li><a href=#standardization>Standardization</a></li>
+<li><a href=#bucketizing--binning>Bucketizing / Binning</a></li>
+<li><a href=#feature-crossing>Feature crossing</a></li>
+<li><a href=#other-techniques>Other techniques</a></li>
+</ul>
+</li>
+<li><a href=#preprocessing-data-at-scale>Preprocessing Data at Scale</a>
+<ul>
+<li><a href=#when-do-you-transform>When do you transform?</a></li>
+<li><a href=#prefetch-transformation>Prefetch transformation</a></li>
+</ul>
+</li>
+<li><a href=#feature-selection>Feature Selection</a>
+<ul>
+<li><a href=#filter-methods>Filter methods</a></li>
+<li><a href=#wrapper-methods>Wrapper methods</a></li>
+<li><a href=#embedded-methods>Embedded methods</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown><h1 id=data>
+Data
+<a class=anchor href=#data>#</a>
+</h1>
+<h2 id=data-inspection>
+Data Inspection
+<a class=anchor href=#data-inspection>#</a>
+</h2>
+<ul>
+<li>Identiry data sources</li>
+<li>Check how they are refreshed</li>
+<li>Consistency (formatting, data types)</li>
+<li>Outliers and errors</li>
+</ul>
+<h2 id=responsilbe-data>
+Responsilbe Data
+<a class=anchor href=#responsilbe-data>#</a>
+</h2>
+<ul>
+<li>Bias in data</li>
+<li>User privacy:
+<ul>
+<li>Aggregation: replace unique values with summary</li>
+<li>Redaction: remove some data to create less complete picture</li>
+</ul>
+</li>
+<li>Compilance with GDPR and other regulations</li>
+</ul>
+<h2 id=data-problems>
+Data Problems
+<a class=anchor href=#data-problems>#</a>
+</h2>
+<h3 id=dataconcept-drift>
+Data/Concept Drift
+<a class=anchor href=#dataconcept-drift>#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+<div class="flex-even markdown-inner">
+<p><strong>Data changes</strong>:</p>
+<ul>
+<li>Trend and seasonality</li>
+<li>Distributiob of features changes</li>
+<li>Relative importance of features changes</li>
+</ul>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>World changes</strong>:</p>
+<ul>
+<li>Style changes</li>
+<li>Scope and processes change</li>
+<li>Competitors change</li>
+<li>Business expands to other geos</li>
+</ul>
+</div>
+</div>
+<table>
+<thead>
+<tr>
+<th>Drift Pace</th>
+<th>Slow</th>
+<th>Faster</th>
+<th>Really Fast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ground truth change period</td>
+<td>months, years</td>
+<td>weeks</td>
+<td>days, hours, minutes</td>
+</tr>
+<tr>
+<td>Retraining driven by</td>
+<td>- model improvements<br>- better data<br>- changes in software/systems</td>
+<td>- Declining model performance<br>- model improvements<br>- better data<br>- changes in software/systems</td>
+<td>- Declining model performance<br>- model improvements<br>- better data<br>- changes in software/systems</td>
+</tr>
+<tr>
+<td>Labeling</td>
+<td>- Curated datasets<br>- Crown-based</td>
+<td>- Direct feedback<br>- Crowd-based</td>
+<td>- Direct feedback<br>- Weak supervision</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id=sudden-problems>
+Sudden Problems
+<a class=anchor href=#sudden-problems>#</a>
+</h3>
+<ul>
+<li><strong>Data collection problem</strong>: bad sensor, bad log data, moved or disabled sensor</li>
+<li><strong>System problems</strong>: bad software update, loss of network connectivity, system down, bad credentials</li>
+</ul>
+<h3 id=detecting-problems>
+Detecting Problems
+<a class=anchor href=#detecting-problems>#</a>
+</h3>
+<ul>
+<li>Label new training data to handle changing ground truth</li>
+<li>Validate data (schema, distribution)</li>
+<li>Monitor models</li>
+</ul>
+<h2 id=data-labeling>
+Data Labeling
+<a class=anchor href=#data-labeling>#</a>
+</h2>
+<ul>
+<li>Process Feedback (direct labeling)
+<ul>
+<li>Continuous dataset creation</li>
+<li>Lables avolve quicly</li>
+<li>Captures strong label signals</li>
+<li>Not always possible</li>
+<li>Individual design</li>
+<li>Tools: Logstash, fluentd, Google Cloud Logging, AWS ElasticSearch, Azure Monitor</li>
+</ul>
+</li>
+<li>Human Labeling
+<ul>
+<li>slow</li>
+<li>difficult for many dataset</li>
+<li>expensive</li>
+<li>small datasets</li>
+</ul>
+</li>
+<li>Semi-supervied labeling</li>
+<li>Active Learning</li>
+<li>Weak Supervision</li>
+</ul>
+<h2 id=data-validation>
+Data Validation
+<a class=anchor href=#data-validation>#</a>
+</h2>
+<p>Typical workflow with TensorFlow Data Validation (TFDV)</p>
+<ul>
+<li>Infer schema (columns, constraints, domains) from training dataset and calculate statistics for each feature</li>
+<li>Check for anomalies (compare statistics) in evaluation dataset and adjust schema</li>
+<li>Store the schema</li>
+<li>Validate input serving data with the schema</li>
+<li>Monitor serving data statistics and track data drift</li>
+</ul>
+<h2 id=data-preprocessing>
+Data Preprocessing
+<a class=anchor href=#data-preprocessing>#</a>
+</h2>
+<p><strong>Data Preprocessing</strong> transforms raw data into a clean and training-ready dataset.</p>
+<p>Preprocessin Operations:</p>
+<ul>
+<li>Data cleansing</li>
+<li>Feature tuning (scaling, normalizing, &mldr;)</li>
+<li>Representation transformation</li>
+<li>Feature extraction</li>
+<li>Feature construction</li>
+</ul>
+<p><img src=images/feature_engineering.png alt=feature_engineering></p>
+<blockquote class="book-hint warning">
+It is important that data preprocessing during training must also be applied correctly during serving
+</blockquote>
+<p>Text preprocessing techniques:</p>
+<ul>
+<li>stemming</li>
+<li>lemmatization</li>
+<li>TF-IDF</li>
+<li>n-grams</li>
+<li>embedding lookup</li>
+</ul>
+<p>Image preprocessing techniques:</p>
+<ul>
+<li>clipping</li>
+<li>resizing</li>
+<li>cropping</li>
+<li>blug</li>
+<li>canny filters</li>
+<li>Sobel filter</li>
+<li>photometric distortions</li>
+</ul>
+<h3 id=scaling>
+Scaling
+<a class=anchor href=#scaling>#</a>
+</h3>
+<p>Rescale numeric range to fit another range, that is more performant for ML model.</p>
+<p>Example: greyscale pixel [0, 255] is usually rescaled to [-1, 1].</p>
+<h3 id=normalization>
+Normalization
+<a class=anchor href=#normalization>#</a>
+</h3>
+<p>Transform any numeric range to [0, 1].</p>
+<link rel=stylesheet href=/katex/katex.min.css>
+<script defer src=/katex/katex.min.js></script>
+<script defer src=/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
+\(X_{norm} = \cfrac{X - X_{min}}{X_{max} - X_{min}}\)
+</span>
+<h3 id=standardization>
+Standardization
+<a class=anchor href=#standardization>#</a>
+</h3>
+<p><strong>Z-score</strong>: number of standard deviations away from the mean.</p>
+<span>
+\(X_{std} = \cfrac{X - \mu}{\sigma}\)
+</span>
+<h3 id=bucketizing--binning>
+Bucketizing / Binning
+<a class=anchor href=#bucketizing--binning>#</a>
+</h3>
+<p><strong>Bucketizing (Binning)</strong> is a grouping technique, that creates categories from a numeric range.</p>
+<h3 id=feature-crossing>
+Feature crossing
+<a class=anchor href=#feature-crossing>#</a>
+</h3>
+<p><strong>Feature crossing</strong>: combining multiple features into one.
+Example: week + hour = hour of the week.</p>
+<h3 id=other-techniques>
+Other techniques
+<a class=anchor href=#other-techniques>#</a>
+</h3>
+<p>Dimensionality reduction in embeddings:</p>
+<ul>
+<li>Principal component analysis (PCA)</li>
+<li>t-Distribution stochastic neighbor embedding (t-SNE)</li>
+<li>Uniform manifold approximation and projection (UMAP)</li>
+</ul>
+<h2 id=preprocessing-data-at-scale>
+Preprocessing Data at Scale
+<a class=anchor href=#preprocessing-data-at-scale>#</a>
+</h2>
+<ul>
+<li>Real-world models can be terabytes of data.</li>
+<li>Large-scale data processing frameworks should be used to handle such a volume.</li>
+<li>Consisnent trasformation between training and serving is crutial.</li>
+</ul>
+<h3 id=when-do-you-transform>
+When do you transform?
+<a class=anchor href=#when-do-you-transform>#</a>
+</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pre-process whole training dataset</td>
+<td>Run-once<br>Compute on entire dataset</td>
+<td>Transformations reproduced at serving<br>Slower iterations</td>
+</tr>
+<tr>
+<td>Within a model</td>
+<td>Easy iterations<br>Transform guarantees</td>
+<td>Expensive transforms<br>Long model latency<br>Transformations per batch: skew</td>
+</tr>
+<tr>
+<td>Transform per batch</td>
+<td>Access to a single batch, not the full dataset<br>Scales better</td>
+<td>Deal with normalization and other &ldquo;wide&rdquo; transformations:<br>- normalize by average withing a batch<br>- precompute average and reuse it in batch processing</td>
+</tr>
+</tbody>
+</table>
+<h3 id=prefetch-transformation>
+Prefetch transformation
+<a class=anchor href=#prefetch-transformation>#</a>
+</h3>
+<p>To optimize narrow transformations, the &ldquo;prefetch&rdquo; transformation can be used. It fetches the next batch of data
+ahead of time, while the previous batch is still processing. This approaches minimizes the idle time.</p>
+<h2 id=feature-selection>
+Feature Selection
+<a class=anchor href=#feature-selection>#</a>
+</h2>
+<p><strong>Feature Space</strong>: n-dimensional space that has each feature of a dataset as an axis.<br>
+Training is learning the decision boundry in a feature space: a line in 2D, a surface in 3D, etc&mldr;
+Feature Space Coverage: train/eval dataset should cover the same areas of Feature Space that the serving dataset does.</p>
+<ul>
+<li>same numerical ranges</li>
+<li>same classes</li>
+<li>similar characteristics for image data</li>
+<li>similar vocabulary, syntax and semantics for NLP data</li>
+</ul>
+<p><strong>Feature Selection</strong>:</p>
+<ul>
+<li>identify features that best represent the relationship</li>
+<li>remove features that don&rsquo;t influence the outcome</li>
+<li>reduce the size of the feature space</li>
+</ul>
+<div class="book-columns flex flex-wrap">
+<div class="flex-even markdown-inner">
+<p><strong>Unsupervised</strong>
+In unsupervised feature selection method the target column is not considered.</p>
+<p>It looks for correlation between features and removes features that
+highly correlate with some other ones.</p>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>Supervised</strong></p>
+<p>Target column <strong>is</strong> not considered.</p>
+<p>It selects features that contibute to the result the most.</p>
+</div>
+</div>
+<p>Supervised methods:</p>
+<ul>
+<li>Filter methods</li>
+<li>Wrapper methods</li>
+<li>Embedded methods</li>
+</ul>
+<h3 id=filter-methods>
+Filter methods
+<a class=anchor href=#filter-methods>#</a>
+</h3>
+<ul>
+<li>Correlation (between features and between features and the label)</li>
+<li>Univariate feature selection</li>
+</ul>
+<p>To detect correlation the <strong>correlation matrix</strong> can be used.</p>
+<p>Correlation tests:</p>
+<ul>
+<li>Pearson correlation: lenear relationship</li>
+<li>Kendall Tau Rank Correlation Coefficient: monotonic relationships and small sample size</li>
+<li>Spearman&rsquo;s Rank Correlation Coefficient: monotonic relationsships</li>
+</ul>
+<p>Other methods:</p>
+<ul>
+<li>Mutual information</li>
+<li>F-test</li>
+<li>Chi-Squared test</li>
+</ul>
+<h3 id=wrapper-methods>
+Wrapper methods
+<a class=anchor href=#wrapper-methods>#</a>
+</h3>
+<div class="book-columns flex flex-wrap">
+<div class="flex-even markdown-inner">
+<p><strong>Forward selection</strong></p>
+<ul>
+<li>Start with 1 feature</li>
+<li>evaluate model performance when <strong>adding</strong> each of the additional features, one at a time</li>
+<li>Add the one that permorms best</li>
+<li>Repeat until there&rsquo;s no improvement</li>
+</ul>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>Backward elimination</strong></p>
+<ul>
+<li>Start with all features</li>
+<li>evaluate model performance when <strong>removing</strong> each of the included features, one at a time</li>
+<li>Remove the one that permorms worst</li>
+<li>Repeat until there&rsquo;s no improvement</li>
+</ul>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>Recursive elimination</strong></p>
+<ul>
+<li>Select a model for evaluating feature improtance (not all models are able to do that)</li>
+<li>Select the desired number of features</li>
+<li>Fit the model</li>
+<li>Rank features by importance</li>
+<li>Discard least important features</li>
+<li>Repeat until the desired number of features remains</li>
+</ul>
+</div>
+</div>
+<h3 id=embedded-methods>
+Embedded methods
+<a class=anchor href=#embedded-methods>#</a>
+</h3>
+<p>Depends on the model you are using.</p>
+<ul>
+<li>L1 regularization</li>
+<li>Feature importance</li>
+</ul>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<div class=book-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#data-inspection>Data Inspection</a></li>
+<li><a href=#responsilbe-data>Responsilbe Data</a></li>
+<li><a href=#data-problems>Data Problems</a>
+<ul>
+<li><a href=#dataconcept-drift>Data/Concept Drift</a></li>
+<li><a href=#sudden-problems>Sudden Problems</a></li>
+<li><a href=#detecting-problems>Detecting Problems</a></li>
+</ul>
+</li>
+<li><a href=#data-labeling>Data Labeling</a></li>
+<li><a href=#data-validation>Data Validation</a></li>
+<li><a href=#data-preprocessing>Data Preprocessing</a>
+<ul>
+<li><a href=#scaling>Scaling</a></li>
+<li><a href=#normalization>Normalization</a></li>
+<li><a href=#standardization>Standardization</a></li>
+<li><a href=#bucketizing--binning>Bucketizing / Binning</a></li>
+<li><a href=#feature-crossing>Feature crossing</a></li>
+<li><a href=#other-techniques>Other techniques</a></li>
+</ul>
+</li>
+<li><a href=#preprocessing-data-at-scale>Preprocessing Data at Scale</a>
+<ul>
+<li><a href=#when-do-you-transform>When do you transform?</a></li>
+<li><a href=#prefetch-transformation>Prefetch transformation</a></li>
+</ul>
+</li>
+<li><a href=#feature-selection>Feature Selection</a>
+<ul>
+<li><a href=#filter-methods>Filter methods</a></li>
+<li><a href=#wrapper-methods>Wrapper methods</a></li>
+<li><a href=#embedded-methods>Embedded methods</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</aside>
+</main>
+</body>
+</html>

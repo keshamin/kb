@@ -1,0 +1,186 @@
+<!doctype html><html lang=en-us dir=ltr>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="TensorFlow Transform #   ExampleGen splits dataset StatisticsGen calculates statistics per feature SchemaGen infers the types of features ExampleValidator checks for data anomalies Transform performs feature engineering  Transform Inputs
+ Data Schema   Transform Outputs
+ Transformed Data Transform Graph    The result transform graph (tf.Graph) holds all necessary constants and transformations. The same chain of transformations can be easily applied at serving time.
+Analizers Framework #  Analizers:">
+<meta name=theme-color content="#FFFFFF">
+<meta name=color-scheme content="light dark"><meta property="og:title" content="TensorFlow Transform">
+<meta property="og:description" content="TensorFlow Transform #   ExampleGen splits dataset StatisticsGen calculates statistics per feature SchemaGen infers the types of features ExampleValidator checks for data anomalies Transform performs feature engineering  Transform Inputs
+ Data Schema   Transform Outputs
+ Transformed Data Transform Graph    The result transform graph (tf.Graph) holds all necessary constants and transformations. The same chain of transformations can be easily applied at serving time.
+Analizers Framework #  Analizers:">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/articles/mle/tensorflow/transform/"><meta property="article:section" content="articles">
+<meta property="article:published_time" content="2022-03-15T13:40:36+03:00">
+<meta property="article:modified_time" content="2022-03-15T13:40:36+03:00">
+<title>TensorFlow Transform | MinII KB</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
+<script defer src=/flexsearch.min.js></script>
+<script defer src=/en.search.min.f2e5928ea44859409d82544f2add8831960a87a07f5c649628dea2889278ad1b.js></script>
+</head>
+<body dir=ltr>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<div class=book-menu-content>
+<nav>
+<h2 class=book-brand>
+<a class="flex align-center" href=/><span>MinII KB</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li>
+<a href=/articles/mle/>Machine Learning Engineering</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/>ML Project Lifecycle</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/scoping/>Scoping Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/data/>Data Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/modeling/>Modeling Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/deployment/>Deployment Stage</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/articles/mle/ml_pipelines/>ML Pipelines</a>
+</li>
+<li>
+<a href=/articles/mle/data/>Data</a>
+</li>
+<li>
+<span>TensorFlow</span>
+<ul>
+<li>
+<a href=/articles/mle/tensorflow/transform/ class=active>TensorFlow Transform</a>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</div>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>TensorFlow Transform</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#analizers-framework>Analizers Framework</a></li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown><h1 id=tensorflow-transform>
+TensorFlow Transform
+<a class=anchor href=#tensorflow-transform>#</a>
+</h1>
+<p><img src=tf_transform.png alt=ft_transform></p>
+<ul>
+<li><strong>ExampleGen</strong> splits dataset</li>
+<li><strong>StatisticsGen</strong> calculates statistics per feature</li>
+<li><strong>SchemaGen</strong> infers the types of features</li>
+<li><strong>ExampleValidator</strong> checks for data anomalies</li>
+<li><strong>Transform</strong> performs feature engineering</li>
+</ul>
+<div class="book-columns flex flex-wrap">
+<div class="flex-even markdown-inner">
+<p><strong>Transform Inputs</strong></p>
+<ul>
+<li>Data</li>
+<li>Schema</li>
+</ul>
+</div>
+<div class="flex-even markdown-inner">
+<p><strong>Transform Outputs</strong></p>
+<ul>
+<li>Transformed Data</li>
+<li>Transform Graph</li>
+</ul>
+</div>
+</div>
+<p>The result <strong>transform graph</strong> (tf.Graph) holds all necessary constants and transformations. The same chain of transformations
+can be easily applied at serving time.</p>
+<h2 id=analizers-framework>
+Analizers Framework
+<a class=anchor href=#analizers-framework>#</a>
+</h2>
+<p>Analizers:</p>
+<ul>
+<li>Scaling
+<ul>
+<li>scale_to_z_score</li>
+<li>scale_to_0_1</li>
+</ul>
+</li>
+<li>Bucketizing
+<ul>
+<li>quantiles</li>
+<li>apply_buckets</li>
+<li>bucketize</li>
+</ul>
+</li>
+<li>Vocabulary
+<ul>
+<li>bag_of_words</li>
+<li>tfidf</li>
+<li>ngrams</li>
+</ul>
+</li>
+<li>Dimensionality Reduciton
+<ul>
+<li>pca</li>
+</ul>
+</li>
+</ul>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<div class=book-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#analizers-framework>Analizers Framework</a></li>
+</ul>
+</nav>
+</div>
+</aside>
+</main>
+</body>
+</html>
