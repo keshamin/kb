@@ -1,0 +1,287 @@
+<!doctype html><html lang=en-us dir=ltr>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Yandex Cloud #  Resource Structure in Yandex Cloud #   As a rule:
+ 1 cloud == 1 company 1 catalog == 1 project  Resource Manager is responsible for organising resources in a structure and assigning permissions.
+There are 2 types of roles:
+ primitive predefined roles: global roles through all the services  viewer editor admin   service roles: granular roles per each single service fygbyvghcgh Roles are inherited: editor on a Cloud can manage resources in any catalog of the Cloud editor on a Catalog can manage only the resources withing that Catalog  Users #  There are 3 types of users:">
+<meta name=theme-color content="#FFFFFF">
+<meta name=color-scheme content="light dark"><meta property="og:title" content="Yandex Cloud">
+<meta property="og:description" content="Yandex Cloud #  Resource Structure in Yandex Cloud #   As a rule:
+ 1 cloud == 1 company 1 catalog == 1 project  Resource Manager is responsible for organising resources in a structure and assigning permissions.
+There are 2 types of roles:
+ primitive predefined roles: global roles through all the services  viewer editor admin   service roles: granular roles per each single service fygbyvghcgh Roles are inherited: editor on a Cloud can manage resources in any catalog of the Cloud editor on a Catalog can manage only the resources withing that Catalog  Users #  There are 3 types of users:">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/articles/yandex/"><meta property="article:section" content="articles">
+<meta property="article:published_time" content="2022-07-25T12:41:36+03:00">
+<meta property="article:modified_time" content="2022-07-25T12:41:36+03:00">
+<title>Yandex Cloud | MinII KB</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
+<script defer src=/flexsearch.min.js></script>
+<script defer src=/en.search.min.31c8a86899450c0d8c502293c105b3cc98cb00c6c6cbcf153bfd8e3414aed001.js></script>
+</head>
+<body dir=ltr>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<div class=book-menu-content>
+<nav>
+<h2 class=book-brand>
+<a class="flex align-center" href=/><span>MinII KB</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li>
+<a href=/articles/yandex/ class=active>Yandex Cloud</a>
+</li>
+<li>
+<input type=checkbox id=section-3d419310493d35800de562901d6208e1 class=toggle>
+<label for=section-3d419310493d35800de562901d6208e1 class="flex justify-between">
+<a href=/articles/mle/>Machine Learning Engineering</a>
+</label>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/>ML Project Lifecycle</a>
+<ul>
+<li>
+<a href=/articles/mle/lifecycle/scoping/>Scoping Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/data/>Data Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/modeling/>Modeling Stage</a>
+</li>
+<li>
+<a href=/articles/mle/lifecycle/deployment/>Deployment Stage</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/articles/mle/ml_pipelines/>ML Pipelines</a>
+</li>
+<li>
+<a href=/articles/mle/data/>Data</a>
+<ul>
+<li>
+<a href=/articles/mle/data/storage/>Storage</a>
+</li>
+<li>
+<a href=/articles/mle/data/schema/>Schema Development</a>
+</li>
+<li>
+<a href=/articles/mle/data/lineage/>Lineage and Provenance</a>
+</li>
+</ul>
+</li>
+<li>
+<span>TensorFlow</span>
+<ul>
+<li>
+<a href=/articles/mle/tensorflow/transform/>TensorFlow Transform</a>
+</li>
+</ul>
+</li>
+<li>
+<a href=/articles/mle/modeling/>Modeling</a>
+<ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</div>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>Yandex Cloud</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents>
+<ul>
+<li><a href=#resource-structure-in-yandex-cloud>Resource Structure in Yandex Cloud</a></li>
+<li><a href=#users>Users</a></li>
+<li><a href=#vpc>VPC</a></li>
+<li><a href=#compute>Compute</a>
+<ul>
+<li><a href=#access-private-vm-via-ssh>Access private VM via SSH</a></li>
+</ul>
+</li>
+<li><a href=#object-storage>Object Storage</a>
+<ul>
+<li><a href=#access-control>Access Control</a></li>
+<li><a href=#pre-signed-url>Pre-signed URL</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</aside>
+</header>
+<article class=markdown><h1 id=yandex-cloud>
+Yandex Cloud
+<a class=anchor href=#yandex-cloud>#</a>
+</h1>
+<h2 id=resource-structure-in-yandex-cloud>
+Resource Structure in Yandex Cloud
+<a class=anchor href=#resource-structure-in-yandex-cloud>#</a>
+</h2>
+<figure><img src=./images/resource_structure.png>
+</figure>
+<p>As a rule:</p>
+<ul>
+<li>1 cloud == 1 company</li>
+<li>1 catalog == 1 project</li>
+</ul>
+<p><strong>Resource Manager</strong> is responsible for organising resources in a structure and assigning permissions.</p>
+<p>There are 2 types of roles:</p>
+<ul>
+<li>primitive predefined roles: global roles through all the services
+<ul>
+<li>viewer</li>
+<li>editor</li>
+<li>admin</li>
+</ul>
+</li>
+<li>service roles: granular roles per each single service
+fygbyvghcgh
+Roles are inherited:</li>
+<li><code>editor</code> on a Cloud can manage resources in any catalog of the Cloud</li>
+<li><code>editor</code> on a Catalog can manage only the resources withing that Catalog</li>
+</ul>
+<h2 id=users>
+Users
+<a class=anchor href=#users>#</a>
+</h2>
+<p>There are 3 types of users:</p>
+<ul>
+<li>Yandex ID</li>
+<li>Federative account, provided by a supported external authentication system, e.g. Microsoft ActiveDirectory</li>
+<li>Service account</li>
+</ul>
+<p><strong>Identity and Access Management</strong> service is responsible for checking permissions when a user performs any action:
+<figure><img src=./images/authorization.png>
+</figure>
+</p>
+<h2 id=vpc>
+VPC
+<a class=anchor href=#vpc>#</a>
+</h2>
+<p>To group and isolate resources <strong>Virtual Private Cloud</strong> (VPC) is used.</p>
+<p>VPC can have unlimited number of <strong>Subnets</strong>. By default, for every VPC 3 subnets are created - for each <strong>Availability Zone</strong>. The subnets must not interfere in terms of IPv4 adresses.
+By default subnets do not have an access to the Internet. To enable it, you can:</p>
+<ul>
+<li><a href=https://cloud.yandex.ru/docs/vpc/operations/enable-nat>enable &ldquo;NAT to Internet&rdquo; option</a> (in Preview),</li>
+<li>or <a href=https://cloud.yandex.ru/docs/tutorials/routing/nat-instance#configure-static-route>set up your own NAT instance on Compute VM</a>.<br>
+If a Compute VM has a public IP and is accessible from the Internet, and can access the Internet itself as well.</li>
+</ul>
+<p>All resources within a VPC can access each other by internal addresses, no matter of which subnet they are assigned to.</p>
+<p>To manually manage routing within a subnet, <strong>Routing Tables</strong> are used.</p>
+<p><strong>Security Groups</strong> (in Preview) are defined in VPC and then can be assigned to network resources to controll firewall rules.</p>
+<h2 id=compute>
+Compute
+<a class=anchor href=#compute>#</a>
+</h2>
+<p>Compute service creates <strong>Virtual Machines</strong> (VM). VMs are created from image: an operating system (Ubuntu, CentOS, Windows, &mldr;) or a preconfigured software (Postgres, NAT Instance, VPN Server, &mldr;).
+<strong>Preemtible</strong> VMs can be turned off when the compute resources are requested by regular VMs. And then they restart when the resources are available again, without time guaranties. Good for testing, orchestrated batch jobs, or K8s cluster.</p>
+<p><strong>Snapshot</strong> is a state of a filesystem at some point in time. It is replicated in all AZs and can be used to restore a replica of some VM.</p>
+<p><strong>Image</strong> is similar to snapshot, but is more performant in terms of restore time, thanks to the way of how snapshots and images are implemented under the hood.</p>
+<p><strong>VM Groups</strong> or Instance Groups are to create a set of VMs with similar configuration (resources, networking) by a template. They are capable of autoscaling basing on CPU load or other custom metric.</p>
+<h3 id=access-private-vm-via-ssh>
+Access private VM via SSH
+<a class=anchor href=#access-private-vm-via-ssh>#</a>
+</h3>
+<p>There are several ways to achieve that:</p>
+<ul>
+<li>First SSH to a public instance (e.g. NAT instance) in the same VPC and then SSH to the private one</li>
+<li>Setup a VPN server to access the whole private network space</li>
+<li><a href=https://cloud.yandex.ru/docs/compute/operations/serial-console/connect-ssh>Use a Serial Console</a>; it is turned on/off in VM settings and should be turned off when not used.</li>
+</ul>
+<h2 id=object-storage>
+Object Storage
+<a class=anchor href=#object-storage>#</a>
+</h2>
+<h3 id=access-control>
+Access Control
+<a class=anchor href=#access-control>#</a>
+</h3>
+<p>The access to objects is controlled by 3 mechanisms:</p>
+<ul>
+<li>IAM roles</li>
+<li>Access Control List (ACL)</li>
+<li>Bucket Policy</li>
+</ul>
+<p>Here&rsquo;s how the access is checked:
+<figure><img src=./images/object_storage_access.webp>
+</figure>
+</p>
+<h4 id=which-mechanism-to-choose>
+Which mechanism to choose?
+<a class=anchor href=#which-mechanism-to-choose>#</a>
+</h4>
+<ul>
+<li>IAM roles are <strong>always</strong> checked, it covers basic use cases</li>
+<li>Bucket Policy allows to apply more complex criterias and conditions</li>
+<li>ACL allows to apply per-object rules</li>
+</ul>
+<h3 id=pre-signed-url>
+Pre-signed URL
+<a class=anchor href=#pre-signed-url>#</a>
+</h3>
+<p>Pre-signed url is another option to provide access to object storage.</p>
+<ul>
+<li>the link is time-limitted (seconds to days)</li>
+<li>it includes the action that is permitted and a signature for authentication</li>
+</ul>
+</article>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<script>(function(){function a(c){const a=window.getSelection(),b=document.createRange();b.selectNodeContents(c),a.removeAllRanges(),a.addRange(b)}document.querySelectorAll("pre code").forEach(b=>{b.addEventListener("click",function(c){a(b.parentElement),navigator.clipboard&&navigator.clipboard.writeText(b.parentElement.textContent)})})})()</script>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<div class=book-toc-content>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#resource-structure-in-yandex-cloud>Resource Structure in Yandex Cloud</a></li>
+<li><a href=#users>Users</a></li>
+<li><a href=#vpc>VPC</a></li>
+<li><a href=#compute>Compute</a>
+<ul>
+<li><a href=#access-private-vm-via-ssh>Access private VM via SSH</a></li>
+</ul>
+</li>
+<li><a href=#object-storage>Object Storage</a>
+<ul>
+<li><a href=#access-control>Access Control</a></li>
+<li><a href=#pre-signed-url>Pre-signed URL</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</aside>
+</main>
+</body>
+</html>

@@ -2,21 +2,21 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=description content="TensorFlow Transform #   ExampleGen splits dataset StatisticsGen calculates statistics per feature SchemaGen infers the types of features ExampleValidator checks for data anomalies Transform performs feature engineering  Transform Inputs
- Data Schema   Transform Outputs
- Transformed Data Transform Graph    The result transform graph (tf.Graph) holds all necessary constants and transformations. The same chain of transformations can be easily applied at serving time.
-Analizers Framework #  Analizers:">
+<meta name=description content="Data Storage #  Feature Store #  Feature store is a central repository for storing documented, curated and access-controlled features.
+Features store enables the team to re-use shared features to avoid redundant work.
+Key points:
+ managing feature data from a single person to an enterprise Scalable and performant access to features for training and serving provide consistent and point-in-time correct access enable discovery, documentation and insights  Offline feature procesing:">
 <meta name=theme-color content="#FFFFFF">
-<meta name=color-scheme content="light dark"><meta property="og:title" content="TensorFlow Transform">
-<meta property="og:description" content="TensorFlow Transform #   ExampleGen splits dataset StatisticsGen calculates statistics per feature SchemaGen infers the types of features ExampleValidator checks for data anomalies Transform performs feature engineering  Transform Inputs
- Data Schema   Transform Outputs
- Transformed Data Transform Graph    The result transform graph (tf.Graph) holds all necessary constants and transformations. The same chain of transformations can be easily applied at serving time.
-Analizers Framework #  Analizers:">
+<meta name=color-scheme content="light dark"><meta property="og:title" content="Storage">
+<meta property="og:description" content="Data Storage #  Feature Store #  Feature store is a central repository for storing documented, curated and access-controlled features.
+Features store enables the team to re-use shared features to avoid redundant work.
+Key points:
+ managing feature data from a single person to an enterprise Scalable and performant access to features for training and serving provide consistent and point-in-time correct access enable discovery, documentation and insights  Offline feature procesing:">
 <meta property="og:type" content="article">
-<meta property="og:url" content="/articles/mle/tensorflow/transform/"><meta property="article:section" content="articles">
-<meta property="article:published_time" content="2022-03-15T13:40:36+03:00">
-<meta property="article:modified_time" content="2022-03-15T13:40:36+03:00">
-<title>TensorFlow Transform | MinII KB</title>
+<meta property="og:url" content="/articles/mle/data/storage/"><meta property="article:section" content="articles">
+<meta property="article:published_time" content="2022-03-22T13:14:59+03:00">
+<meta property="article:modified_time" content="2022-03-22T13:14:59+03:00">
+<title>Storage | MinII KB</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
@@ -73,7 +73,7 @@ Analizers Framework #  Analizers:">
 <a href=/articles/mle/data/>Data</a>
 <ul>
 <li>
-<a href=/articles/mle/data/storage/>Storage</a>
+<a href=/articles/mle/data/storage/ class=active>Storage</a>
 </li>
 <li>
 <a href=/articles/mle/data/schema/>Schema Development</a>
@@ -87,7 +87,7 @@ Analizers Framework #  Analizers:">
 <span>TensorFlow</span>
 <ul>
 <li>
-<a href=/articles/mle/tensorflow/transform/ class=active>TensorFlow Transform</a>
+<a href=/articles/mle/tensorflow/transform/>TensorFlow Transform</a>
 </li>
 </ul>
 </li>
@@ -109,7 +109,7 @@ Analizers Framework #  Analizers:">
 <label for=menu-control>
 <img src=/svg/menu.svg class=book-icon alt=Menu>
 </label>
-<strong>TensorFlow Transform</strong>
+<strong>Storage</strong>
 <label for=toc-control>
 <img src=/svg/toc.svg class=book-icon alt="Table of Contents">
 </label>
@@ -117,72 +117,61 @@ Analizers Framework #  Analizers:">
 <aside class="hidden clearfix">
 <nav id=TableOfContents>
 <ul>
-<li><a href=#analizers-framework>Analizers Framework</a></li>
+<li><a href=#feature-store>Feature Store</a></li>
+<li><a href=#data-warehoues>Data warehoues</a></li>
+<li><a href=#data-lakes>Data Lakes</a></li>
 </ul>
 </nav>
 </aside>
 </header>
-<article class=markdown><h1 id=tensorflow-transform>
-TensorFlow Transform
-<a class=anchor href=#tensorflow-transform>#</a>
+<article class=markdown><h1 id=data-storage>
+Data Storage
+<a class=anchor href=#data-storage>#</a>
 </h1>
-<p><img src=tf_transform.png alt=ft_transform></p>
-<ul>
-<li><strong>ExampleGen</strong> splits dataset</li>
-<li><strong>StatisticsGen</strong> calculates statistics per feature</li>
-<li><strong>SchemaGen</strong> infers the types of features</li>
-<li><strong>ExampleValidator</strong> checks for data anomalies</li>
-<li><strong>Transform</strong> performs feature engineering</li>
-</ul>
-<div class="book-columns flex flex-wrap">
-<div class="flex-even markdown-inner">
-<p><strong>Transform Inputs</strong></p>
-<ul>
-<li>Data</li>
-<li>Schema</li>
-</ul>
-</div>
-<div class="flex-even markdown-inner">
-<p><strong>Transform Outputs</strong></p>
-<ul>
-<li>Transformed Data</li>
-<li>Transform Graph</li>
-</ul>
-</div>
-</div>
-<p>The result <strong>transform graph</strong> (tf.Graph) holds all necessary constants and transformations. The same chain of transformations
-can be easily applied at serving time.</p>
-<h2 id=analizers-framework>
-Analizers Framework
-<a class=anchor href=#analizers-framework>#</a>
+<h2 id=feature-store>
+Feature Store
+<a class=anchor href=#feature-store>#</a>
 </h2>
-<p>Analizers:</p>
+<p><strong>Feature store</strong> is a central repository for storing documented, curated and access-controlled features.<br>
+Features store enables the team to re-use shared features to avoid redundant work.</p>
+<p>Key points:</p>
 <ul>
-<li>Scaling
-<ul>
-<li>scale_to_z_score</li>
-<li>scale_to_0_1</li>
+<li>managing feature data from a single person to an enterprise</li>
+<li>Scalable and performant access to features for training and serving</li>
+<li>provide consistent and point-in-time correct access</li>
+<li>enable discovery, documentation and insights</li>
 </ul>
-</li>
-<li>Bucketizing
+<p>Offline feature procesing:</p>
 <ul>
-<li>quantiles</li>
-<li>apply_buckets</li>
-<li>bucketize</li>
+<li>feature engineering, like feature crossing</li>
+<li>data quality control</li>
+<li>offline storage</li>
+<li>discoverability</li>
 </ul>
-</li>
-<li>Vocabulary
+<p>Online feature usage:</p>
 <ul>
-<li>bag_of_words</li>
-<li>tfidf</li>
-<li>ngrams</li>
+<li>low-latency access</li>
+<li>access to pre-computed features (computing aggregations and joins online is very time-consuming)</li>
 </ul>
-</li>
-<li>Dimensionality Reduciton
+<h2 id=data-warehoues>
+Data warehoues
+<a class=anchor href=#data-warehoues>#</a>
+</h2>
+<p>Key features:</p>
 <ul>
-<li>pca</li>
+<li>subject-oriented</li>
+<li>integrated (multiple data sources)</li>
+<li>non-volatile (access to history)</li>
 </ul>
-</li>
+<h2 id=data-lakes>
+Data Lakes
+<a class=anchor href=#data-lakes>#</a>
+</h2>
+<ul>
+<li>Aggregates raw data from multiple sources</li>
+<li>Structured and unsctructured</li>
+<li>Purpose of data may be not yet determined</li>
+<li>Doesn&rsquo;t involve any data processing</li>
 </ul>
 </article>
 <footer class=book-footer>
@@ -198,7 +187,9 @@ Analizers Framework
 <div class=book-toc-content>
 <nav id=TableOfContents>
 <ul>
-<li><a href=#analizers-framework>Analizers Framework</a></li>
+<li><a href=#feature-store>Feature Store</a></li>
+<li><a href=#data-warehoues>Data warehoues</a></li>
+<li><a href=#data-lakes>Data Lakes</a></li>
 </ul>
 </nav>
 </div>

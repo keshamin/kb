@@ -6,18 +6,16 @@
  Trend and seasonality Distributiob of features changes Relative importance of features changes   World changes:">
 <meta name=theme-color content="#FFFFFF">
 <meta name=color-scheme content="light dark"><meta property="og:title" content="Data">
-<meta property="og:description" content="Data #  Data Inspection #   Identiry data sources Check how they are refreshed Consistency (formatting, data types) Outliers and errors  Responsilbe Data #   Bias in data User privacy:  Aggregation: replace unique values with summary Redaction: remove some data to create less complete picture   Compilance with GDPR and other regulations  Data Problems #  Data/Concept Drift #  Data changes:
- Trend and seasonality Distributiob of features changes Relative importance of features changes   World changes:">
-<meta property="og:type" content="article">
-<meta property="og:url" content="/articles/mle/data/"><meta property="article:section" content="articles">
-<meta property="article:published_time" content="2022-03-01T15:40:36+03:00">
-<meta property="article:modified_time" content="2022-03-01T15:40:36+03:00">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:url" content="/articles/mle/data/">
 <title>Data | MinII KB</title>
 <link rel=manifest href=/manifest.json>
 <link rel=icon href=/favicon.png type=image/x-icon>
 <link rel=stylesheet href=/book.min.82c5dbd23447cee0b4c2aa3ed08ce0961faa40e1fa370eee4f8c9f02e0d46b5f.css>
 <script defer src=/flexsearch.min.js></script>
-<script defer src=/en.search.min.f2e5928ea44859409d82544f2add8831960a87a07f5c649628dea2889278ad1b.js></script>
+<script defer src=/en.search.min.31c8a86899450c0d8c502293c105b3cc98cb00c6c6cbcf153bfd8e3414aed001.js></script>
+<link rel=alternate type=application/rss+xml href=/articles/mle/data/index.xml title="MinII KB">
 </head>
 <body dir=ltr>
 <input type=checkbox class="hidden toggle" id=menu-control>
@@ -37,7 +35,13 @@
 </div>
 <ul>
 <li>
+<a href=/articles/yandex/>Yandex Cloud</a>
+</li>
+<li>
+<input type=checkbox id=section-3d419310493d35800de562901d6208e1 class=toggle checked>
+<label for=section-3d419310493d35800de562901d6208e1 class="flex justify-between">
 <a href=/articles/mle/>Machine Learning Engineering</a>
+</label>
 <ul>
 <li>
 <a href=/articles/mle/lifecycle/>ML Project Lifecycle</a>
@@ -61,6 +65,17 @@
 </li>
 <li>
 <a href=/articles/mle/data/ class=active>Data</a>
+<ul>
+<li>
+<a href=/articles/mle/data/storage/>Storage</a>
+</li>
+<li>
+<a href=/articles/mle/data/schema/>Schema Development</a>
+</li>
+<li>
+<a href=/articles/mle/data/lineage/>Lineage and Provenance</a>
+</li>
+</ul>
 </li>
 <li>
 <span>TensorFlow</span>
@@ -68,6 +83,11 @@
 <li>
 <a href=/articles/mle/tensorflow/transform/>TensorFlow Transform</a>
 </li>
+</ul>
+</li>
+<li>
+<a href=/articles/mle/modeling/>Modeling</a>
+<ul>
 </ul>
 </li>
 </ul>
@@ -100,7 +120,15 @@
 <li><a href=#detecting-problems>Detecting Problems</a></li>
 </ul>
 </li>
-<li><a href=#data-labeling>Data Labeling</a></li>
+<li><a href=#data-labeling>Data Labeling</a>
+<ul>
+<li><a href=#process-feedback-direct-labeling>Process Feedback (direct labeling)</a></li>
+<li><a href=#human-labeling>Human Labeling</a></li>
+<li><a href=#semi-supervied-labeling>Semi-supervied labeling</a></li>
+<li><a href=#active-learning>Active Learning</a></li>
+<li><a href=#weak-supervision>Weak Supervision</a></li>
+</ul>
+</li>
 <li><a href=#data-validation>Data Validation</a></li>
 <li><a href=#data-preprocessing>Data Preprocessing</a>
 <ul>
@@ -241,29 +269,59 @@ Detecting Problems
 Data Labeling
 <a class=anchor href=#data-labeling>#</a>
 </h2>
-<ul>
-<li>Process Feedback (direct labeling)
+<h3 id=process-feedback-direct-labeling>
+Process Feedback (direct labeling)
+<a class=anchor href=#process-feedback-direct-labeling>#</a>
+</h3>
 <ul>
 <li>Continuous dataset creation</li>
-<li>Lables avolve quicly</li>
+<li>Lables evolve quicly</li>
 <li>Captures strong label signals</li>
 <li>Not always possible</li>
 <li>Individual design</li>
 <li>Tools: Logstash, fluentd, Google Cloud Logging, AWS ElasticSearch, Azure Monitor</li>
 </ul>
-</li>
-<li>Human Labeling
+<h3 id=human-labeling>
+Human Labeling
+<a class=anchor href=#human-labeling>#</a>
+</h3>
 <ul>
 <li>slow</li>
 <li>difficult for many dataset</li>
 <li>expensive</li>
 <li>small datasets</li>
 </ul>
-</li>
-<li>Semi-supervied labeling</li>
-<li>Active Learning</li>
-<li>Weak Supervision</li>
+<h3 id=semi-supervied-labeling>
+Semi-supervied labeling
+<a class=anchor href=#semi-supervied-labeling>#</a>
+</h3>
+<ul>
+<li>can boost the accuracy</li>
+<li>cheap and fast</li>
+<li>small human-labeled data is mixed with large unlabeled data</li>
+<li>relies on some uniformity and clustering within feature space and performs <strong>label propogation</strong></li>
 </ul>
+<h3 id=active-learning>
+Active Learning
+<a class=anchor href=#active-learning>#</a>
+</h3>
+<ul>
+<li>algorithms for intelligent sampling data</li>
+<li>select the most informative points and label them only</li>
+<li>useful with contrained budgets when you can afford to label few data</li>
+<li>useful with imbalanced dataset: helps find rare classes</li>
+</ul>
+<p>Techniques: margin sampling, cluster-based sampling, query-by-committee, region-based sampling, etc.</p>
+<h3 id=weak-supervision>
+Weak Supervision
+<a class=anchor href=#weak-supervision>#</a>
+</h3>
+<ul>
+<li>SME defines heuristics: labeling functions that generate noisy rough labels</li>
+<li>generative model de-noises and weights labels</li>
+<li>the labels are used to train model</li>
+</ul>
+<p>Weak supervision framework: Snorkel.</p>
 <h2 id=data-validation>
 Data Validation
 <a class=anchor href=#data-validation>#</a>
@@ -527,7 +585,15 @@ Embedded methods
 <li><a href=#detecting-problems>Detecting Problems</a></li>
 </ul>
 </li>
-<li><a href=#data-labeling>Data Labeling</a></li>
+<li><a href=#data-labeling>Data Labeling</a>
+<ul>
+<li><a href=#process-feedback-direct-labeling>Process Feedback (direct labeling)</a></li>
+<li><a href=#human-labeling>Human Labeling</a></li>
+<li><a href=#semi-supervied-labeling>Semi-supervied labeling</a></li>
+<li><a href=#active-learning>Active Learning</a></li>
+<li><a href=#weak-supervision>Weak Supervision</a></li>
+</ul>
+</li>
 <li><a href=#data-validation>Data Validation</a></li>
 <li><a href=#data-preprocessing>Data Preprocessing</a>
 <ul>
