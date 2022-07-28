@@ -61,21 +61,41 @@ weight: 10
 
 ## Data Labeling
 
-- Process Feedback (direct labeling)
-  - Continuous dataset creation
-  - Lables avolve quicly
-  - Captures strong label signals
-  - Not always possible
-  - Individual design
-  - Tools: Logstash, fluentd, Google Cloud Logging, AWS ElasticSearch, Azure Monitor
-- Human Labeling
-  - slow
-  - difficult for many dataset
-  - expensive
-  - small datasets
-- Semi-supervied labeling
-- Active Learning
-- Weak Supervision
+### Process Feedback (direct labeling)
+- Continuous dataset creation
+- Lables evolve quicly
+- Captures strong label signals
+- Not always possible
+- Individual design
+- Tools: Logstash, fluentd, Google Cloud Logging, AWS ElasticSearch, Azure Monitor
+
+### Human Labeling
+- slow
+- difficult for many dataset
+- expensive
+- small datasets
+
+### Semi-supervied labeling
+- can boost the accuracy
+- cheap and fast
+- small human-labeled data is mixed with large unlabeled data 
+- relies on some uniformity and clustering within feature space and performs **label propogation**
+
+### Active Learning
+- algorithms for intelligent sampling data
+- select the most informative points and label them only
+- useful with contrained budgets when you can afford to label few data
+- useful with imbalanced dataset: helps find rare classes
+
+Techniques: margin sampling, cluster-based sampling, query-by-committee, region-based sampling, etc.
+
+### Weak Supervision
+- SME defines heuristics: labeling functions that generate noisy rough labels
+- generative model de-noises and weights labels
+- the labels are used to train model
+
+Weak supervision framework: Snorkel.
+
 
 ## Data Validation
 
